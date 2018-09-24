@@ -9,9 +9,9 @@
   "gxDependencies": [
     {
       "author": "why",
-      "hash": "QmUyaGN3WPr3CTLai7DBvMikagK45V4fUi8p8cNRaJQoU1",
+      "hash": "QmenvDer6Lfv9Q8mDWS2hcYscvEv1RJgvXkPjZX3thLr6g",
       "name": "go-bitswap",
-      "version": "1.1.1"
+      "version": "1.1.2"
     },
     {
       "author": "hsanjuan",
@@ -49,6 +49,6 @@
   "license": "",
   "name": "go-blockservice",
   "releaseCmd": "git commit -a -m \"gx publish $VERSION\"",
-  "version": "1.1.1"
+  "version": "1.1.2"
 }
 
