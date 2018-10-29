@@ -16,6 +16,7 @@ import (
 	exchange "github.com/ipfs/go-ipfs-exchange-interface"
 	logging "github.com/ipfs/go-log"
 	"github.com/ipfs/go-verifcid"
+	mh "github.com/multiformats/go-multihash"
 )
 
 var log = logging.Logger("blockservice")
@@ -59,7 +60,7 @@ type BlockService interface {
 	AddBlocks(bs []blocks.Block) error
 
 	// DeleteBlock deletes the given block from the blockservice.
-	DeleteBlock(o cid.Cid) error
+	DeleteBlock(o mh.Multihash) error
 }
 
 type blockService struct {
@@ -138,7 +139,7 @@ func (s *blockService) AddBlock(o blocks.Block) error {
 		return err
 	}
 	if s.checkFirst {
-		if has, err := s.blockstore.Has(c); has || err != nil {
+		if has, err := s.blockstore.Has(c.Hash()); has || err != nil {
 			return err
 		}
 	}
@@ -169,7 +170,7 @@ func (s *blockService) AddBlocks(bs []blocks.Block) error {
 	if s.checkFirst {
 		toput = make([]blocks.Block, 0, len(bs))
 		for _, b := range bs {
-			has, err := s.blockstore.Has(b.Cid())
+			has, err := s.blockstore.Has(b.Cid().Hash())
 			if err != nil {
 				return err
 			}
@@ -312,10 +313,11 @@ func getBlocks(ctx context.Context, ks []cid.Cid, bs blockstore.Blockstore, fget
 }
 
 // DeleteBlock deletes a block in the blockservice from the datastore
-func (s *blockService) DeleteBlock(c cid.Cid) error {
-	err := s.blockstore.DeleteBlock(c)
+func (s *blockService) DeleteBlock(k mh.Multihash) error {
+	err := s.blockstore.Delete(k)
 	if err == nil {
-		log.Event(context.TODO(), "BlockService.BlockDeleted", c)
+		// FIXME: mh not Loggable
+		//log.Event(context.TODO(), "BlockService.BlockDeleted", k)
 	}
 	return err
 }
