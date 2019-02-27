@@ -36,12 +36,6 @@
       "hash": "QmYYLnAzR28nAQ4U5MFniLprnktu6eTFKibeNt96V21EZK",
       "name": "go-block-format",
       "version": "0.2.2"
-    },
-    {
-      "author": "why",
-      "hash": "QmcVd2ApQdbfaYPKhCjj4WoQuxk4CMxPqmNpijKmFLh6qa",
-      "name": "go-verifcid",
-      "version": "0.1.2"
     }
   ],
   "gxVersion": "0.12.1",
