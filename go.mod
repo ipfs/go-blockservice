@@ -1,7 +1,8 @@
 module github.com/ipfs/go-blockservice
 
 require (
-	github.com/ipfs/go-bitswap v0.0.1
+	github.com/gxed/pubsub v0.0.0-20180201040156-26ebdf44f824 // indirect
+	github.com/ipfs/go-bitswap v0.0.3
 	github.com/ipfs/go-block-format v0.0.2
 	github.com/ipfs/go-cid v0.0.1
 	github.com/ipfs/go-datastore v0.0.1
