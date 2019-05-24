@@ -1,7 +1,7 @@
 module github.com/ipfs/go-blockservice
 
 require (
-	github.com/ipfs/go-bitswap v0.0.8
+	github.com/ipfs/go-bitswap v0.0.9
 	github.com/ipfs/go-block-format v0.0.2
 	github.com/ipfs/go-cid v0.0.2
 	github.com/ipfs/go-datastore v0.0.5
@@ -16,5 +16,6 @@ require (
 	github.com/ipfs/go-verifcid v0.0.1
 	github.com/libp2p/go-libp2p-interface-connmgr v0.1.0 // indirect
 	github.com/libp2p/go-libp2p-interface-pnet v0.1.0 // indirect
+	github.com/libp2p/go-libp2p-testing v0.0.2 // indirect
 	golang.org/x/sys v0.0.0-20190524152521-dbbf3f1254d4 // indirect
 )

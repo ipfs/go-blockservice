@@ -56,8 +56,8 @@ github.com/huin/goupnp v1.0.0/go.mod h1:n9v9KO1tAxYH82qOn+UTIFQDmx5n1Zxd/ClZDMX7
 github.com/huin/goutil v0.0.0-20170803182201-1ca381bf3150/go.mod h1:PpLOETDnJ0o3iZrZfqZzyLl6l7F3c6L1oWn7OICBi6o=
 github.com/ipfs/bbloom v0.0.1 h1:s7KkiBPfxCeDVo47KySjK0ACPc5GJRUxFpdyWEuDjhw=
 github.com/ipfs/bbloom v0.0.1/go.mod h1:oqo8CVWsJFMOZqTglBG4wydCE4IQA/G2/SEofB0rjUI=
-github.com/ipfs/go-bitswap v0.0.8 h1:YMyXE/sJIIu72hOWgTTM59C6KaRi+vhZzUHCgPzJWAo=
-github.com/ipfs/go-bitswap v0.0.8/go.mod h1:Ro/IVE1DgM/Gvn1Kbjz7xcAZ+2vXqUo15VDzpBvHNsw=
+github.com/ipfs/go-bitswap v0.0.9 h1:Dy0qvYlaOd2E2FOL2gApJ21qVjepJsGNNfstLrGf+0I=
+github.com/ipfs/go-bitswap v0.0.9/go.mod h1:kAPf5qgn2W2DrgAcscZ3HrM9qh4pH+X8Fkk3UPrwvis=
 github.com/ipfs/go-block-format v0.0.1/go.mod h1:DK/YYcsSUIVAFNwo/KZCdIIbpN0ROH/baNLgayt4pFc=
 github.com/ipfs/go-block-format v0.0.2 h1:qPDvcP19izTjU8rgo6p7gTXZlkMkF5bz5G3fqIsSCPE=
 github.com/ipfs/go-block-format v0.0.2/go.mod h1:AWR46JfpcObNfg3ok2JHDUfdiHRgWhJgCQF+KIgOPJY=
@@ -204,10 +204,11 @@ github.com/libp2p/go-libp2p-swarm v0.0.6 h1:gE0P/v2h+KEXtAi9YTw2UBOSODJ4m9VuuJ+k
 github.com/libp2p/go-libp2p-swarm v0.0.6/go.mod h1:s5GZvzg9xXe8sbeESuFpjt8CJPTCa8mhEusweJqyFy8=
 github.com/libp2p/go-libp2p-testing v0.0.1 h1:zhr/Z0xWLgvbK3iSb+RYgbdJVVdawteUMvfkER5MvQ8=
 github.com/libp2p/go-libp2p-testing v0.0.1/go.mod h1:gvchhf3FQOtBdr+eFUABet5a4MBLK8jM3V4Zghvmi+E=
+github.com/libp2p/go-libp2p-testing v0.0.2 h1:p9ySW7MFvGGs83hAAe0MPGnjy/tPjl5KyxpMkojdZ+g=
+github.com/libp2p/go-libp2p-testing v0.0.2/go.mod h1:gvchhf3FQOtBdr+eFUABet5a4MBLK8jM3V4Zghvmi+E=
 github.com/libp2p/go-libp2p-transport v0.0.1/go.mod h1:UzbUs9X+PHOSw7S3ZmeOxfnwaQY5vGDzZmKPod3N3tk=
+github.com/libp2p/go-libp2p-transport v0.0.5 h1:pV6+UlRxyDpASSGD+60vMvdifSCby6JkJDfi+yUMHac=
 github.com/libp2p/go-libp2p-transport v0.0.5/go.mod h1:StoY3sx6IqsP6XKoabsPnHCwqKXWUMWU7Rfcsubee/A=
-github.com/libp2p/go-libp2p-transport v0.1.0 h1:q68SOTvX+71mk+n5eE3+FnUEPY5UL1CSFImH0bq0Vg8=
-github.com/libp2p/go-libp2p-transport v0.1.0/go.mod h1:iL3c2tV3OVldqSwJrds8pmIWf4t/TwiF+eI/mhw/jjQ=
 github.com/libp2p/go-libp2p-transport-upgrader v0.0.4 h1:uGMOd14BL1oFlfb/cGfOxPjiTKBhzWV4aMjjoCF1Z1o=
 github.com/libp2p/go-libp2p-transport-upgrader v0.0.4/go.mod h1:RGq+tupk+oj7PzL2kn/m1w6YXxcIAYJYeI90h6BGgUc=
 github.com/libp2p/go-libp2p-yamux v0.1.2/go.mod h1:xUoV/RmYkg6BW/qGxA9XJyg+HzXFYkeXbnhjmnYzKp8=
