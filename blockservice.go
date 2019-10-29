@@ -147,8 +147,6 @@ func (s *blockService) AddBlock(o blocks.Block) error {
 		return err
 	}
 
-	log.Event(context.TODO(), "BlockService.BlockAdded", c)
-
 	if s.exchange != nil {
 		if err := s.exchange.HasBlock(o); err != nil {
 			log.Errorf("HasBlock: %s", err.Error())
@@ -193,7 +191,6 @@ func (s *blockService) AddBlocks(bs []blocks.Block) error {
 
 	if s.exchange != nil {
 		for _, o := range toput {
-			log.Event(context.TODO(), "BlockService.BlockAdded", o.Cid())
 			if err := s.exchange.HasBlock(o); err != nil {
 				log.Errorf("HasBlock: %s", err.Error())
 			}
@@ -243,7 +240,6 @@ func getBlock(ctx context.Context, c cid.Cid, bs blockstore.Blockstore, fget fun
 			}
 			return nil, err
 		}
-		log.Event(ctx, "BlockService.BlockFetched", c)
 		return blk, nil
 	}
 
@@ -311,7 +307,6 @@ func getBlocks(ctx context.Context, ks []cid.Cid, bs blockstore.Blockstore, fget
 		}
 
 		for b := range rblocks {
-			log.Event(ctx, "BlockService.BlockFetched", b.Cid())
 			select {
 			case out <- b:
 			case <-ctx.Done():
@@ -326,7 +321,6 @@ func getBlocks(ctx context.Context, ks []cid.Cid, bs blockstore.Blockstore, fget
 func (s *blockService) DeleteBlock(c cid.Cid) error {
 	err := s.blockstore.DeleteBlock(c)
 	if err == nil {
-		log.Event(context.TODO(), "BlockService.BlockDeleted", c)
 	}
 	return err
 }

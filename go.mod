@@ -12,6 +12,8 @@ require (
 	github.com/ipfs/go-ipfs-exchange-offline v0.0.1
 	github.com/ipfs/go-ipfs-routing v0.1.0
 	github.com/ipfs/go-ipfs-util v0.0.1
-	github.com/ipfs/go-log v0.0.1
+	github.com/ipfs/go-log v0.0.2-0.20190920042044-a609c1ae5144
 	github.com/ipfs/go-verifcid v0.0.1
 )
+
+go 1.13
