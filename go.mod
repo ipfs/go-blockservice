@@ -1,5 +1,7 @@
 module github.com/ipfs/go-blockservice
 
+go 1.13
+
 require (
 	github.com/ipfs/go-bitswap v0.1.8
 	github.com/ipfs/go-block-format v0.0.2
