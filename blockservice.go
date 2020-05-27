@@ -5,7 +5,6 @@ package blockservice
 
 import (
 	"context"
-	"errors"
 	"io"
 	"sync"
 
@@ -13,13 +12,12 @@ import (
 	cid "github.com/ipfs/go-cid"
 	blockstore "github.com/ipfs/go-ipfs-blockstore"
 	exchange "github.com/ipfs/go-ipfs-exchange-interface"
+	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
 	"github.com/ipfs/go-verifcid"
 )
 
-var log = logging.Logger("blockservice")
-
-var ErrNotFound = errors.New("blockservice: key not found")
+var logger = logging.Logger("blockservice")
 
 // BlockGetter is the common interface shared between blockservice sessions and
 // the blockservice.
@@ -72,7 +70,7 @@ type blockService struct {
 // NewBlockService creates a BlockService with given datastore instance.
 func New(bs blockstore.Blockstore, rem exchange.Interface) BlockService {
 	if rem == nil {
-		log.Debug("blockservice running in local (offline) mode.")
+		logger.Debug("blockservice running in local (offline) mode.")
 	}
 
 	return &blockService{
@@ -86,7 +84,7 @@ func New(bs blockstore.Blockstore, rem exchange.Interface) BlockService {
 // through to the blockstore and are not skipped by cache checks.
 func NewWriteThrough(bs blockstore.Blockstore, rem exchange.Interface) BlockService {
 	if rem == nil {
-		log.Debug("blockservice running in local (offline) mode.")
+		logger.Debug("blockservice running in local (offline) mode.")
 	}
 
 	return &blockService{
@@ -147,11 +145,11 @@ func (s *blockService) AddBlock(o blocks.Block) error {
 		return err
 	}
 
-	log.Event(context.TODO(), "BlockService.BlockAdded", c)
+	logger.Event(context.TODO(), "BlockService.BlockAdded", c)
 
 	if s.exchange != nil {
 		if err := s.exchange.HasBlock(o); err != nil {
-			log.Errorf("HasBlock: %s", err.Error())
+			logger.Errorf("HasBlock: %s", err.Error())
 		}
 	}
 
@@ -193,9 +191,9 @@ func (s *blockService) AddBlocks(bs []blocks.Block) error {
 
 	if s.exchange != nil {
 		for _, o := range toput {
-			log.Event(context.TODO(), "BlockService.BlockAdded", o.Cid())
+			logger.Event(context.TODO(), "BlockService.BlockAdded", o.Cid())
 			if err := s.exchange.HasBlock(o); err != nil {
-				log.Errorf("HasBlock: %s", err.Error())
+				logger.Errorf("HasBlock: %s", err.Error())
 			}
 		}
 	}
@@ -205,7 +203,7 @@ func (s *blockService) AddBlocks(bs []blocks.Block) error {
 // GetBlock retrieves a particular block from the service,
 // Getting it from the datastore using the key (hash).
 func (s *blockService) GetBlock(ctx context.Context, c cid.Cid) (blocks.Block, error) {
-	log.Debugf("BlockService GetBlock: '%s'", c)
+	logger.Debugf("BlockService GetBlock: '%s'", c)
 
 	var f func() exchange.Fetcher
 	if s.exchange != nil {
@@ -230,28 +228,21 @@ func getBlock(ctx context.Context, c cid.Cid, bs blockstore.Blockstore, fget fun
 		return block, nil
 	}
 
-	if err == blockstore.ErrNotFound && fget != nil {
+	if ipld.IsNotFound(err) && fget != nil {
 		f := fget() // Don't load the exchange until we have to
 
 		// TODO be careful checking ErrNotFound. If the underlying
 		// implementation changes, this will break.
-		log.Debug("Blockservice: Searching bitswap")
+		logger.Debug("Blockservice: Searching bitswap")
 		blk, err := f.GetBlock(ctx, c)
 		if err != nil {
-			if err == blockstore.ErrNotFound {
-				return nil, ErrNotFound
-			}
 			return nil, err
 		}
-		log.Event(ctx, "BlockService.BlockFetched", c)
+		logger.Event(ctx, "BlockService.BlockFetched", c)
 		return blk, nil
 	}
 
-	log.Debug("Blockservice GetBlock: Not found")
-	if err == blockstore.ErrNotFound {
-		return nil, ErrNotFound
-	}
-
+	logger.Debug("Blockservice GetBlock: Not found")
 	return nil, err
 }
 
@@ -280,7 +271,7 @@ func getBlocks(ctx context.Context, ks []cid.Cid, bs blockstore.Blockstore, fget
 				ks[k] = c
 				k++
 			} else {
-				log.Errorf("unsafe CID (%s) passed to blockService.GetBlocks: %s", c, err)
+				logger.Errorf("unsafe CID (%s) passed to blockService.GetBlocks: %s", c, err)
 			}
 		}
 		ks = ks[:k]
@@ -306,12 +297,12 @@ func getBlocks(ctx context.Context, ks []cid.Cid, bs blockstore.Blockstore, fget
 		f := fget() // don't load exchange unless we have to
 		rblocks, err := f.GetBlocks(ctx, misses)
 		if err != nil {
-			log.Debugf("Error with GetBlocks: %s", err)
+			logger.Debugf("Error with GetBlocks: %s", err)
 			return
 		}
 
 		for b := range rblocks {
-			log.Event(ctx, "BlockService.BlockFetched", b.Cid())
+			logger.Event(ctx, "BlockService.BlockFetched", b.Cid())
 			select {
 			case out <- b:
 			case <-ctx.Done():
@@ -326,13 +317,13 @@ func getBlocks(ctx context.Context, ks []cid.Cid, bs blockstore.Blockstore, fget
 func (s *blockService) DeleteBlock(c cid.Cid) error {
 	err := s.blockstore.DeleteBlock(c)
 	if err == nil {
-		log.Event(context.TODO(), "BlockService.BlockDeleted", c)
+		logger.Event(context.TODO(), "BlockService.BlockDeleted", c)
 	}
 	return err
 }
 
 func (s *blockService) Close() error {
-	log.Debug("blockservice is shutting down...")
+	logger.Debug("blockservice is shutting down...")
 	return s.exchange.Close()
 }
 
