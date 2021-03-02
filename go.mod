@@ -16,4 +16,6 @@ require (
 	github.com/ipfs/go-ipfs-util v0.0.1
 	github.com/ipfs/go-log v0.0.1
 	github.com/ipfs/go-verifcid v0.0.1
+	github.com/libp2p/go-libp2p v0.1.1
+	github.com/libp2p/go-libp2p-netutil v0.1.0
 )
