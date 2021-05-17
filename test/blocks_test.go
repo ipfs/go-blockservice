@@ -23,6 +23,7 @@ func newObject(data []byte) blocks.Block {
 }
 
 func TestBlocks(t *testing.T) {
+	ctx := context.Background()
 	bstore := blockstore.NewBlockstore(dssync.MutexWrap(ds.NewMapDatastore()))
 	bs := New(bstore, offline.Exchange(bstore))
 	defer bs.Close()
@@ -33,7 +34,7 @@ func TestBlocks(t *testing.T) {
 		t.Error("Block key and data multihash key not equal")
 	}
 
-	err := bs.AddBlock(o)
+	err := bs.AddBlock(ctx, o)
 	if err != nil {
 		t.Error("failed to add block to BlockService", err)
 		return
@@ -65,6 +66,7 @@ func makeObjects(n int) []blocks.Block {
 }
 
 func TestGetBlocksSequential(t *testing.T) {
+	ctx := context.Background()
 	var servs = Mocks(4)
 	for _, s := range servs {
 		defer s.Close()
@@ -74,7 +76,7 @@ func TestGetBlocksSequential(t *testing.T) {
 	var cids []cid.Cid
 	for _, o := range objs {
 		cids = append(cids, o.Cid())
-		err := servs[0].AddBlock(o)
+		err := servs[0].AddBlock(ctx, o)
 		if err != nil {
 			t.Fatal(err)
 		}

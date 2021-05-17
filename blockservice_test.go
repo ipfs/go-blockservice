@@ -14,6 +14,7 @@ import (
 )
 
 func TestWriteThroughWorks(t *testing.T) {
+	ctx := context.Background()
 	bstore := &PutCountingBlockstore{
 		blockstore.NewBlockstore(dssync.MutexWrap(ds.NewMapDatastore())),
 		0,
@@ -26,7 +27,7 @@ func TestWriteThroughWorks(t *testing.T) {
 	block := bgen.Next()
 
 	t.Logf("PutCounter: %d", bstore.PutCounter)
-	err := bserv.AddBlock(block)
+	err := bserv.AddBlock(ctx, block)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -34,7 +35,7 @@ func TestWriteThroughWorks(t *testing.T) {
 		t.Fatalf("expected just one Put call, have: %d", bstore.PutCounter)
 	}
 
-	err = bserv.AddBlock(block)
+	err = bserv.AddBlock(ctx, block)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -58,12 +59,12 @@ func TestLazySessionInitialization(t *testing.T) {
 	bgen := butil.NewBlockGenerator()
 
 	block := bgen.Next()
-	err := bstore.Put(block)
+	err := bstore.Put(ctx, block)
 	if err != nil {
 		t.Fatal(err)
 	}
 	block2 := bgen.Next()
-	err = session.HasBlock(block2)
+	err = session.HasBlock(ctx, block2)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -101,9 +102,9 @@ type PutCountingBlockstore struct {
 	PutCounter int
 }
 
-func (bs *PutCountingBlockstore) Put(block blocks.Block) error {
+func (bs *PutCountingBlockstore) Put(ctx context.Context, block blocks.Block) error {
 	bs.PutCounter++
-	return bs.Blockstore.Put(block)
+	return bs.Blockstore.Put(ctx, block)
 }
 
 var _ exchange.SessionExchange = (*fakeSessionExchange)(nil)
