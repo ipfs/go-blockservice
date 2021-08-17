@@ -1,6 +1,6 @@
 module github.com/ipfs/go-blockservice
 
-go 1.15
+go 1.16
 
 require (
 	github.com/google/uuid v1.2.0 // indirect
