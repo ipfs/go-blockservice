@@ -15,7 +15,7 @@ require (
 	github.com/ipfs/go-ipfs-exchange-offline v0.0.1
 	github.com/ipfs/go-ipfs-routing v0.1.0
 	github.com/ipfs/go-ipfs-util v0.0.2
-	github.com/ipfs/go-log v1.0.5
+	github.com/ipfs/go-log/v2 v2.3.0
 	github.com/ipfs/go-verifcid v0.0.1
 	github.com/klauspost/cpuid/v2 v2.0.6 // indirect
 	github.com/libp2p/go-libp2p v0.14.0 // indirect
