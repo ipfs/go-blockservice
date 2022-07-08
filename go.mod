@@ -21,6 +21,12 @@ require (
 	go.opentelemetry.io/otel/trace v1.7.0
 )
 
+replace github.com/ipfs/go-ipfs-exchange-interface => github.com/MichaelMure/go-ipfs-exchange-interface v0.0.2-0.20220713142804-1181846dc171
+
+replace github.com/ipfs/go-ipfs-exchange-offline => github.com/MichaelMure/go-ipfs-exchange-offline v0.0.2-0.20220714102739-4b7a20c758a9
+
+replace github.com/ipfs/go-bitswap => github.com/MichaelMure/go-bitswap v0.2.20-0.20220714225615-2c2a46194c4e
+
 require (
 	github.com/benbjohnson/clock v1.1.0 // indirect
 	github.com/btcsuite/btcd v0.21.0-beta // indirect
