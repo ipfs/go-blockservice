@@ -3,7 +3,7 @@ module github.com/ipfs/go-blockservice
 go 1.17
 
 require (
-	github.com/ipfs/go-bitswap v0.6.0
+	github.com/ipfs/go-bitswap v0.8.0
 	github.com/ipfs/go-block-format v0.0.3
 	github.com/ipfs/go-cid v0.0.7
 	github.com/ipfs/go-datastore v0.5.0
@@ -20,8 +20,6 @@ require (
 	go.opentelemetry.io/otel v1.7.0
 	go.opentelemetry.io/otel/trace v1.7.0
 )
-
-replace github.com/ipfs/go-bitswap => github.com/MichaelMure/go-bitswap v0.2.20-0.20220714225615-2c2a46194c4e
 
 require (
 	github.com/benbjohnson/clock v1.1.0 // indirect
