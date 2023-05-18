@@ -26,6 +26,8 @@ var logger = logging.Logger("blockservice")
 
 // BlockGetter is the common interface shared between blockservice sessions and
 // the blockservice.
+//
+// Deprecated: use github.com/ipfs/boxo/blockservice.BlockGetter
 type BlockGetter interface {
 	// GetBlock gets the requested block.
 	GetBlock(ctx context.Context, c cid.Cid) (blocks.Block, error)
@@ -43,6 +45,8 @@ type BlockGetter interface {
 // BlockService is a hybrid block datastore. It stores data in a local
 // datastore and may retrieve data from a remote Exchange.
 // It uses an internal `datastore.Datastore` instance to store values.
+//
+// Deprecated: use github.com/ipfs/boxo/blockservice.BlockService
 type BlockService interface {
 	io.Closer
 	BlockGetter
@@ -73,6 +77,8 @@ type blockService struct {
 }
 
 // NewBlockService creates a BlockService with given datastore instance.
+//
+// Deprecated: use github.com/ipfs/boxo/blockservice.New
 func New(bs blockstore.Blockstore, rem exchange.Interface) BlockService {
 	if rem == nil {
 		logger.Debug("blockservice running in local (offline) mode.")
@@ -87,6 +93,8 @@ func New(bs blockstore.Blockstore, rem exchange.Interface) BlockService {
 
 // NewWriteThrough creates a BlockService that guarantees writes will go
 // through to the blockstore and are not skipped by cache checks.
+//
+// Deprecated: use github.com/ipfs/boxo/blockservice.NewWriteThrough
 func NewWriteThrough(bs blockstore.Blockstore, rem exchange.Interface) BlockService {
 	if rem == nil {
 		logger.Debug("blockservice running in local (offline) mode.")
@@ -114,6 +122,8 @@ func (s *blockService) Exchange() exchange.Interface {
 // If the current exchange is a SessionExchange, a new exchange
 // session will be created. Otherwise, the current exchange will be used
 // directly.
+//
+// Deprecated: use github.com/ipfs/boxo/blockservice.NewSession
 func NewSession(ctx context.Context, bs BlockService) *Session {
 	exch := bs.Exchange()
 	if sessEx, ok := exch.(exchange.SessionExchange); ok {
@@ -395,6 +405,8 @@ type notifier interface {
 }
 
 // Session is a helper type to provide higher level access to bitswap sessions
+//
+// Deprecated: use github.com/ipfs/boxo/blockservice.Session
 type Session struct {
 	bs       blockstore.Blockstore
 	ses      exchange.Fetcher

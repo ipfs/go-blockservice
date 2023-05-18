@@ -9,6 +9,8 @@ import (
 )
 
 // Mocks returns |n| connected mock Blockservices
+//
+// Deprecated: use github.com/ipfs/boxo/blockservice/test.Mocks
 func Mocks(n int) []blockservice.BlockService {
 	net := tn.VirtualNetwork(mockrouting.NewServer(), delay.Fixed(0))
 	sg := testinstance.NewTestInstanceGenerator(net, nil, nil)
