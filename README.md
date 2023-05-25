@@ -20,7 +20,6 @@ go-blockservice
 ## Table of Contents
 
 - [TODO](#todo)
-- [Contribute](#contribute)
 - [License](#license)
 
 ## TODO
@@ -28,12 +27,6 @@ go-blockservice
 The interfaces here really would like to be merged with the blockstore interfaces.
 The 'dagservice' constructor currently takes a blockservice, but it would be really nice
 if it could just take a blockstore, and have this package implement a blockstore.
-
-## Contribute
-
-PRs are welcome!
-
-Small note: If editing the Readme, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
 ## License
 
